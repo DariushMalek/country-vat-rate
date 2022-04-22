@@ -14,6 +14,7 @@ public static class Configuration
         return services
             .AddDbContext<AppDbContext>(ConfigureDbContext)
             .AddScoped<ICountryRepository, CountryRepository>()
-            .AddScoped<ICountryRateRepository, CountryRateRepository>();
+            .AddScoped<ICountryRateRepository, CountryRateRepository>()
+            .AddTransient<SeedDataService>();
     }
 }
