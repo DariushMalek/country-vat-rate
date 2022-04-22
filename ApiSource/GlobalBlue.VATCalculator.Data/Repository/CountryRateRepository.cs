@@ -10,4 +10,10 @@ public class CountryRateRepository : EfRepository<CountryRate>, ICountryRateRepo
     public CountryRateRepository(AppDbContext? dbContext) : base(dbContext)
     {
     }
+
+    public async Task<IEnumerable<CountryRate>?> GetByCountryAndDate(int countryId, DateTime dateOfRate)
+    {
+        return await GetByCriteria(n =>
+            n.Country.Id == countryId && n.FromDate <= dateOfRate && (n.ToDate >= dateOfRate || n.ToDate == null), true)!.ToListAsync();
+    }
 }
