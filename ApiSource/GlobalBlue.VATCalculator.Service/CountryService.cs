@@ -12,4 +12,9 @@ public class CountryService : ServiceBase, ICountryService
     {
         _countryRepository = countryRepository;
     }
+
+    public async Task<IEnumerable<Country>> GetAllCountries()
+    {
+        return await _countryRepository.ListAllAsync();
+    }
 }

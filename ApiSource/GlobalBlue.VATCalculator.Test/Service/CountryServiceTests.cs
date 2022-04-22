@@ -28,4 +28,15 @@ public class CountryServiceTests
         _countryService = new CountryService(_countryRepository);
     }
 
+    [Fact]
+    public async void GetAllCountries_Should_Return_AllEntities()
+    {
+        var countries = _fixture.CreateMany<Country>();
+
+        _countryRepository.ListAllAsync().Returns(countries);
+
+        var result = await _countryService.GetAllCountries();
+
+        result.Should().HaveCount(countries.Count());
+    }
 }
