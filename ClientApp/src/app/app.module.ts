@@ -26,5 +26,5 @@ export class AppModule { }
 
 export function getBaseUrl() {
   let host = window.location.protocol + "//" + window.location.hostname;
-  return host + ':5035';
+  return host + ':5035/api/';
 }
