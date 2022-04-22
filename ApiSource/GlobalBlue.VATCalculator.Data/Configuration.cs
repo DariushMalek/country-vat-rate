@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GlobalBlue.VATCalculator.Data.Repository;
+using GlobalBlue.VATCalculator.Data.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GlobalBlue.VATCalculator.Data;
@@ -10,6 +12,8 @@ public static class Configuration
         void ConfigureDbContext(DbContextOptionsBuilder o) => o.UseSqlite(dbConnectionString);
 
         return services
-            .AddDbContext<AppDbContext>(ConfigureDbContext);
+            .AddDbContext<AppDbContext>(ConfigureDbContext)
+            .AddScoped<ICountryRepository, CountryRepository>()
+            .AddScoped<ICountryRateRepository, CountryRateRepository>();
     }
 }

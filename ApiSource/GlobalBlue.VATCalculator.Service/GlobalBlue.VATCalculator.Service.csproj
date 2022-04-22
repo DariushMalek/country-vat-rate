@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GlobalBlue.VATCalculator.Data\GlobalBlue.VATCalculator.Data.csproj" />
+  </ItemGroup>
+
 </Project>
