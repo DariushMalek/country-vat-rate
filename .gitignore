@@ -436,6 +436,6 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-RockStarTrader.db
-RockStarTrader.db-shm
-RockStarTrader.db-wal
+CountryRateDb.db
+CountryRateDb.db-shm
+CountryRateDb.db-wal
