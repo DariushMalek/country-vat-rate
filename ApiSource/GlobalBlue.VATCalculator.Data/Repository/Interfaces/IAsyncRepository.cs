@@ -7,5 +7,9 @@ namespace GlobalBlue.VATCalculator.Data.Repository.Interfaces;
 public interface IAsyncRepository<TEntity> 
     where TEntity : EntityBase
 {
+    Task<TEntity> AddAsync(TEntity entity);
 
+    Task<IEnumerable<TEntity>> ListAllAsync();
+
+    IQueryable<TEntity>? GetByCriteria(Expression<Func<TEntity, bool>> criteria, bool includeAll = false);
 }

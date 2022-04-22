@@ -19,4 +19,36 @@ public abstract class EfRepository<TEntity> : IAsyncRepository<TEntity>
         DbSet = DbContext.Set<TEntity>();
     }
 
+    public async Task<TEntity> AddAsync(TEntity entity)
+    {
+        await DbSet.AddAsync(entity);
+        await DbContext.SaveChangesAsync();
+        return entity;
+    }
+
+    public virtual async Task<IEnumerable<TEntity>> ListAllAsync()
+    {
+        return await DbSet.AsNoTracking().ToListAsync();
+    }
+
+    public virtual IQueryable<TEntity>? GetByCriteria(Expression<Func<TEntity, bool>> criteria, bool includeAll = false)
+    {
+        var query = DbSet.AsQueryable();
+        if (!includeAll)
+        {
+            return query.Where(criteria);
+        }
+
+        var navigators = DbContext.Model.FindEntityType(typeof(TEntity))
+            ?.GetDerivedTypesInclusive()
+            .SelectMany(type => type.GetNavigations())
+            .Distinct();
+
+        if (navigators != null)
+        {
+            query = navigators.Aggregate(query, (current, property) => current.Include(property.Name));
+        }
+
+        return query.Where(criteria);
+    }
 }
