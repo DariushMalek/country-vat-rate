@@ -10,11 +10,27 @@ namespace GlobalBlue.VATCalculator.Api.Controllers
     {
         private readonly ILogger<CountriesController> _logger;
 
-        public CountriesController(ILogger<CountriesController> logger)
+        private readonly ICountryService _countryService;
+
+        private readonly ICountryRateService _countryRateService;
+
+        public CountriesController(ILogger<CountriesController> logger, ICountryService countryService, ICountryRateService countryRateService)
         {
             _logger = logger;
+            _countryService = countryService;
+            _countryRateService = countryRateService;
         }
 
-  
+        [HttpGet()]
+        public async Task<ActionResult> GetAll()
+        {
+            return Ok();
+        }
+
+        [HttpGet("getRates/{id}")]
+        public async Task<ActionResult> GetRates(int id)
+        {
+            return Ok();
+        }
     }
 }
