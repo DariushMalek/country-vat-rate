@@ -9,12 +9,17 @@ describe('VatCalculatorComponent', () => {
   let countryVatRateInfoService: CountryVatRateInfoService;
   let countryVatRateInfoServiceStub: Partial<CountryVatRateInfoService>;
   let fakeCountries$: BehaviorSubject<any>;
+  let fakeCountryRates$: BehaviorSubject<any>;
   
   beforeEach(async () => {
     fakeCountries$ = new BehaviorSubject([{id: 1, countryName: 'Austria', isDefault: true}]);
+    fakeCountryRates$ = new BehaviorSubject([{id: 1, rateTitle: '%5', rate: 5, countryId: 1}]);
     countryVatRateInfoServiceStub = {
       getCountries(): Observable<any> {
         return fakeCountries$;
+      },
+      getCountryRates(): Observable<any> {
+        return fakeCountryRates$;
       }
     };
     await TestBed.configureTestingModule({
@@ -39,5 +44,11 @@ describe('VatCalculatorComponent', () => {
     component.getCountries();
     fixture.detectChanges();
     expect(component.countries).toBe(fakeCountries$.getValue());
+  });
+
+  it('getCountrRate should return current country rates', () => {
+    component.getCountrRate(1);
+    fixture.detectChanges();
+    expect(component.rates).toBe(fakeCountryRates$.getValue());
   });
 });
