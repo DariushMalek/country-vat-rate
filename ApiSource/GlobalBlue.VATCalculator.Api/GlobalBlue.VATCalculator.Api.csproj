@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GlobalBlue.VATCalculator.Service\GlobalBlue.VATCalculator.Service.csproj" />
   </ItemGroup>
 
