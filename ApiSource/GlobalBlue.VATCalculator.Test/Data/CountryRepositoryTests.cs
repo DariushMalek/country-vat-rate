@@ -18,5 +18,40 @@ public class CountryRepositoryTests
         _countryRepository = new CountryRepository(dbContextFixture.Context);
     }
 
-   
+    [Fact]
+    public async Task AddAsync_ShouldReturn_EntityWithId()
+    {
+        var newCountry = new Country()
+        {
+            CountryName = "Austria",
+            IsDefault = true
+        };
+
+        var result = await _countryRepository.AddAsync(newCountry);
+
+        result.Id.Should().BeGreaterThan(0);
+    }
+
+    [Fact]
+    public async Task ListAllAsync_ShouldReturn_AllEntities()
+    {
+        var austria = new Country()
+        {
+            CountryName = "UK",
+            IsDefault = false
+        };
+        var germany = new Country()
+        {
+            CountryName = "Germany",
+            IsDefault = false
+        };
+
+        await _countryRepository.AddAsync(austria);
+        await _countryRepository.AddAsync(germany);
+
+        var result = await _countryRepository.ListAllAsync();
+
+        result.Should().NotBeNull();
+        result.Should().HaveCountGreaterThan(2);
+    }
 }
