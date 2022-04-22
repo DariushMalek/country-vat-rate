@@ -28,4 +28,16 @@ public class CountryRateServiceTests
         _countryRateService = new CountryRateService(_countryRateRepository);
     }
 
+    [Fact]
+    public async void GetCountryCurrentRates_Should_Return_ActiveVatRatesOfTheCountry()
+    {
+        var countryId = _fixture.Create<int>();
+        var rates = _fixture.CreateMany<CountryRate>();
+
+        _countryRateRepository.GetByCountryAndDate(countryId, Arg.Any<DateTime>()).Returns(rates);
+
+        var result = await _countryRateService.GetCountryCurrentRates(countryId);
+
+        result.Should().HaveCount(rates.Count());
+    }
 }

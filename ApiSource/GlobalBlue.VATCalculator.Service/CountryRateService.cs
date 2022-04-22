@@ -13,4 +13,9 @@ public class CountryRateService : ServiceBase, ICountryRateService
         _countryVatRepository = countryVatRepository;
     }
 
+    public async Task<IEnumerable<CountryRate>?> GetCountryCurrentRates(int countryId)
+    {
+        return await _countryVatRepository.GetByCountryAndDate(countryId, DateTime.Now);
+    }
+
 }
