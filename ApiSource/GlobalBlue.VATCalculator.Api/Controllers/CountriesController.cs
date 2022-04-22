@@ -1,4 +1,6 @@
+using GlobalBlue.VATCalculator.Api.Mapper;
 using GlobalBlue.VATCalculator.Model.Entities;
+using GlobalBlue.VATCalculator.Model.Response;
 using GlobalBlue.VATCalculator.Service.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,11 +16,14 @@ namespace GlobalBlue.VATCalculator.Api.Controllers
 
         private readonly ICountryRateService _countryRateService;
 
-        public CountriesController(ILogger<CountriesController> logger, ICountryService countryService, ICountryRateService countryRateService)
+        private readonly ICountryRateMapper _countryRateMapper;
+
+        public CountriesController(ILogger<CountriesController> logger, ICountryService countryService, ICountryRateService countryRateService, ICountryRateMapper countryRateMapper)
         {
             _logger = logger;
             _countryService = countryService;
             _countryRateService = countryRateService;
+            _countryRateMapper = countryRateMapper;
         }
 
         [HttpGet()]
@@ -30,9 +35,11 @@ namespace GlobalBlue.VATCalculator.Api.Controllers
         }
 
         [HttpGet("getRates/{id}")]
-        public async Task<ActionResult> GetRates(int id)
+        public async Task<ActionResult<IEnumerable<CountryRateInfoResponse>>> GetRates(int id)
         {
-            return Ok();
+            var result = await _countryRateService.GetCountryCurrentRates(id);
+            _logger.LogInformation($"GetRates has returned {result.Count()} of countries");
+            return Ok(_countryRateMapper.ToResponse(result));
         }
     }
 }

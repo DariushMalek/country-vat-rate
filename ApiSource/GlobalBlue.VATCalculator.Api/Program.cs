@@ -1,3 +1,4 @@
+using GlobalBlue.VATCalculator.Api.Mapper;
 using GlobalBlue.VATCalculator.Data;
 using GlobalBlue.VATCalculator.Service;
 
@@ -12,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDataServices(connectionString);
 builder.Services.AddBusinessServices();
+builder.Services.AddMappingServices();
 
 var app = builder.Build();
 
