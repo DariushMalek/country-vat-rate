@@ -22,9 +22,11 @@ namespace GlobalBlue.VATCalculator.Api.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<Country>>> GetAll()
         {
-            return Ok();
+            var result = await _countryService.GetAllCountries();
+            _logger.LogInformation($"GetAllCountries has returned {result.Count()} of countries");
+            return Ok(result);
         }
 
         [HttpGet("getRates/{id}")]
