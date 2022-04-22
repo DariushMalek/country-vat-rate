@@ -1,1 +1,8 @@
-<p>vat-calculator works!</p>
+<mat-form-field appearance="fill">
+  <mat-label>Country</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let country of countries" [value]="country.id">
+      {{country.countryName}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

@@ -8,6 +8,9 @@ describe('CountryVatRateInfoService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({imports: [
       HttpClientTestingModule 
+    ],
+    providers: [
+      { provide: 'BASE_URL', useValue: 'http://localhost' }
     ]});
     service = TestBed.inject(CountryVatRateInfoService);
   });

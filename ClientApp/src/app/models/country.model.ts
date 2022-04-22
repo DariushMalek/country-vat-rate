@@ -1,5 +1,5 @@
 export interface Country {
     id: number,
     countryName: string,
-    isDefault: string
+    isDefault: boolean
 }

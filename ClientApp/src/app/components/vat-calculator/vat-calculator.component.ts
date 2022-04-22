@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
+import { Country } from 'src/app/models/country.model';
+import { CountryVatRateInfoService } from 'src/app/services/country-vat-rate-info/country-vat-rate-info.service';
 
 @Component({
   selector: 'app-vat-calculator',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VatCalculatorComponent implements OnInit {
 
-  constructor() { }
+  countries: Country[] = []
+
+  constructor(private countryVatRateInfoService: CountryVatRateInfoService) { }
 
   ngOnInit(): void {
+    this.getCountries();
   }
 
+  getCountries(){
+    this.countryVatRateInfoService.getCountries().subscribe({
+      next: (data: any) => this.countries = data,
+      error: (err) => console.log(err) 
+    })
+  }
 }

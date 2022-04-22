@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { VatCalculatorComponent } from './components/vat-calculator/vat-calculator.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },
@@ -28,5 +30,6 @@ export class AppModule { }
 
 export function getBaseUrl() {
   let host = window.location.protocol + "//" + window.location.hostname;
+  console.log(host);
   return host + ':5035/api/';
 }

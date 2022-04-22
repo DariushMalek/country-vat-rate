@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { VatCalculatorComponent } from './components/vat-calculator/vat-calculator.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: VatCalculatorComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
