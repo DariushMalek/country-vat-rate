@@ -1,30 +1,53 @@
 <mat-card>
   <mat-card-content>
     <div>
-    <mat-form-field appearance="fill">
-      <mat-label>Country</mat-label>
-      <mat-select (selectionChange)="countrySelectedChange($event.value)">
-        <mat-option *ngFor="let country of countries" [value]="country">
-          {{country.countryName}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-      <br />
-        <mat-divider class="position-relative"></mat-divider>
-        <br />
-        <div>
-
+      <mat-form-field appearance="fill">
+        <mat-label>Country</mat-label>
+        <mat-select class="mat-select-country" (selectionChange)="countrySelectedChange($event.value)" [(ngModel)]="currentCountry">
+          <mat-option *ngFor="let country of countries" [value]="country">
+            {{country.countryName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <br />
+    <mat-divider class="position-relative"></mat-divider>
+    <br />
+    <div>
       <label id="example-radio-group-label">VAT Rate</label>
-      <mat-radio-group
-        aria-labelledby="example-radio-group-label"
-        class="example-radio-group"
-        [(ngModel)]="currentRate">
-        <mat-radio-button class="example-radio-button" *ngFor="let rate of rates" [value]="rate">
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+        [(ngModel)]="currentRate" (change)="onRateChange()">
+        <mat-radio-button class="example-radio-button" *ngFor="let rate of rates" [value]="rate" >
           {{rate.rateTitle}}
         </mat-radio-button>
       </mat-radio-group>
+    </div>
+    <br />
+    <mat-divider class="position-relative"></mat-divider>
+    <br />
+    <div>
+      <mat-card-content>
+        <form fxLayout="row column" [formGroup]="vatCalcForm">
+          <div fxFlex="100">
+            <div class="form-group">
+              <mat-form-field fxFlex="33">
+                <input formControlName="net" matInput type="number" placeholder="Net" class="net-input right-align" (input)="onNetChange(vatCalcForm.value)">
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field fxFlex="33">
+                <input formControlName="vat" matInput type="number" placeholder="Vat" class="vat-input right-align" (input)="onVatChange(vatCalcForm.value)">
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field fxFlex="33">
+                <input formControlName="gross" matInput type="number" placeholder="Gross" class="gross-input right-align" (input)="onGrossChange(vatCalcForm.value)">
+              </mat-form-field>
+            </div>
 
-  </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </div>
   </mat-card-content>
 </mat-card>
