@@ -95,8 +95,8 @@ public class SeedDataService : IDisposable
             Country = country,
             FromDate = DateTime.Now,
             ToDate = null,
-            Rate = 19,
-            RateTitle = "19%"
+            Rate = 16,
+            RateTitle = "16%"
         });
 
         await _countryRateRepository.AddAsync(new CountryRate()
@@ -104,8 +104,8 @@ public class SeedDataService : IDisposable
             Country = country,
             FromDate = DateTime.Now,
             ToDate = null,
-            Rate = 16,
-            RateTitle = "16%"
+            Rate = 19,
+            RateTitle = "19%"
         });
     }
 

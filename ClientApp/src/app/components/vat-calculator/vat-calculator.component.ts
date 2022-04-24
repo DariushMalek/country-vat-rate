@@ -18,6 +18,7 @@ export class VatCalculatorComponent implements OnInit {
   rates: CountryRate[] = [];
   currentRate: any;
   currentCountry: any;
+  inMemoryData = true;
 
   vatCalcForm = this.formBuilder.group({
     gross: [0, [
@@ -49,7 +50,7 @@ export class VatCalculatorComponent implements OnInit {
   get vat() { return this.vatCalcForm.get('vat'); }
 
   getCountries(){
-    this.countryVatRateInfoService.getCountries().subscribe({
+    this.countryVatRateInfoService.getCountries(this.inMemoryData).subscribe({
       next: (data: any) => {
         this.countries = data;
         this.currentCountry = this.countries.filter(n=> n.isDefault)[0];       
@@ -60,7 +61,7 @@ export class VatCalculatorComponent implements OnInit {
   }
 
   getCountryRates(id: number){
-    this.countryVatRateInfoService.getCountryRates(id).subscribe({
+    this.countryVatRateInfoService.getCountryRates(id, this.inMemoryData).subscribe({
       next: (data: any) => {
         this.rates = data;
         this.currentRate = this.rates[0];
@@ -92,5 +93,9 @@ export class VatCalculatorComponent implements OnInit {
     const amounts = this.vatCalcForm.value;
     const newAmounts = this.vatCalculatorService.calcByNet(amounts.net, this.currentRate.rate);
     this.vatCalcForm.setValue(newAmounts);
+  }
+
+  onInMemoryDataChange(){
+    this.getCountries();
   }
 }

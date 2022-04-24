@@ -9,6 +9,11 @@
     display:inline-block;
 }
 
+.content > mat-card > mat-card-header {
+  text-align: center;
+  display:inline-block;
+}
+
 img {
     height:50px;
     display:inline-block;
