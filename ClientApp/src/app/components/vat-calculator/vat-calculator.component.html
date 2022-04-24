@@ -10,6 +10,9 @@
     <mat-card-content>
       <div>
         <mat-checkbox class="example-margin" [(ngModel)]="inMemoryData" (change)="onInMemoryDataChange()" ngDefaultControl>InMemory Data</mat-checkbox>
+        <mat-error *ngIf="httpErrorMessage">
+          {{httpErrorMessage}}
+        </mat-error>
       </div>
       <br />
       <div>
@@ -20,7 +23,7 @@
             <mat-option *ngFor="let country of countries" [value]="country">
               {{country.countryName}}
             </mat-option>
-          </mat-select>
+          </mat-select>  
         </mat-form-field>
       </div>
       <br />
