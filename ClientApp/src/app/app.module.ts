@@ -7,12 +7,13 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { VatCalculatorComponent } from './components/vat-calculator/vat-calculator.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSelectModule} from '@angular/material/select';
-import {MatCardModule} from '@angular/material/card';
-import {MatRadioGroup, MatRadioModule} from '@angular/material/radio';
+import { MatSelectModule} from '@angular/material/select';
+import { MatCardModule} from '@angular/material/card';
+import { MatRadioModule} from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule} from '@angular/material/input';
+import { MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {MatInputModule} from '@angular/material/input';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatToolbarModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

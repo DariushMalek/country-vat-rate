@@ -1,0 +1,19 @@
+.content {
+    padding: 50px;
+    text-align: center;
+}
+
+.content > mat-card {
+    width: 320px;
+    text-align: center;
+    display:inline-block;
+}
+
+img {
+    height:50px;
+    display:inline-block;
+  }
+
+  .mat-radio-button ~ .mat-radio-button {
+    margin-left: 30px;
+  }
