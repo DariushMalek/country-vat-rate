@@ -20,6 +20,7 @@ export class VatCalculatorComponent implements OnInit {
   currentCountry: any;
   inMemoryData = true;
   httpErrorMessage = '';
+  isWaiting = false;
 
   vatCalcForm = this.formBuilder.group({
     gross: [0, [
@@ -51,14 +52,19 @@ export class VatCalculatorComponent implements OnInit {
   get vat() { return this.vatCalcForm.get('vat'); }
 
   getCountries(){
+    this.isWaiting = true;
     this.countryVatRateInfoService.getCountries(this.inMemoryData).subscribe({
       next: (data: any) => {
         this.countries = data;
         this.currentCountry = this.countries.filter(n=> n.isDefault)[0];       
         this.getCountryRates(this.currentCountry.id);
-        this.httpErrorMessage = '';
+        this.httpErrorMessage = '';   
+        this.isWaiting = false;   
       },
-      error: (err) => this.httpErrorMessage = err.message
+      error: (err) => {
+        this.httpErrorMessage = err.message;
+        this.isWaiting = false;  
+       }
     })
   }
 
