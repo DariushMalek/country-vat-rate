@@ -1,6 +1,6 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BehaviorSubject, observable, Observable } from 'rxjs';
 import { CountryVatRateInfoService } from 'src/app/services/country-vat-rate-info/country-vat-rate-info.service';
@@ -28,6 +28,7 @@ describe('VatCalculatorComponent', () => {
       }
     };
     await TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule, FormsModule],
       declarations: [ VatCalculatorComponent ],
        providers: [ { provide: CountryVatRateInfoService, useValue: countryVatRateInfoServiceStub }, FormBuilder ]
     })
@@ -44,6 +45,94 @@ describe('VatCalculatorComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('form invalid when empty', () => {
+    expect(component.vatCalcForm.valid).toBeFalsy();
+  });
+
+  it('net field validity', () => {
+    let net = component.vatCalcForm.controls['net'];
+    expect(net.valid).toBeFalsy();
+  });
+
+  it('vat field validity', () => {
+    let vat = component.vatCalcForm.controls['vat'];
+    expect(vat.valid).toBeFalsy();
+  });
+
+  it('gross field validity', () => {
+    let gross = component.vatCalcForm.controls['gross'];
+    expect(gross.valid).toBeFalsy();
+  });
+
+  it('net field min error validity', () => {
+    let errors = {};
+    let net = component.vatCalcForm.controls['net'];
+    errors = net.errors || {};
+    expect(net?.errors?.['min']).toBeTruthy();
+  });
+
+  it('vat field min error validity', () => {
+    let errors = {};
+    let vat = component.vatCalcForm.controls['vat'];
+    errors = vat.errors || {};
+    expect(vat?.errors?.['min']).toBeTruthy();
+  });
+
+  it('gross field min error validity', () => {
+    let errors = {};
+    let gross = component.vatCalcForm.controls['gross'];
+    errors = gross.errors || {};
+    expect(gross?.errors?.['min']).toBeTruthy();
+  });
+
+  it('net field is required error validity', () => {
+    let errors = {};
+    let net = component.vatCalcForm.controls['net'];
+    net.setValue(null);
+    errors = net.errors || {};
+    expect(net?.errors?.['required']).toBeTruthy();
+  });
+
+  it('vat field is required error validity', () => {
+    let errors = {};
+    let vat = component.vatCalcForm.controls['vat'];
+    vat.setValue(null);
+    errors = vat.errors || {};
+    expect(vat?.errors?.['required']).toBeTruthy();
+  });
+
+  it('gross field is required error validity', () => {
+    let errors = {};
+    let gross = component.vatCalcForm.controls['gross'];
+    gross.setValue(null);
+    errors = gross.errors || {};
+    expect(gross?.errors?.['required']).toBeTruthy();
+  });
+
+  it('net field is valid', () => {
+    let errors = {};
+    let net = component.vatCalcForm.controls['net'];
+    net.setValue(45000);
+    errors = net.errors || {};
+    expect(net?.errors?.['min']).toBeFalsy();
+  });
+
+  it('vat field is valid', () => {
+    let errors = {};
+    let vat = component.vatCalcForm.controls['vat'];
+    vat.setValue(500);
+    errors = vat.errors || {};
+    expect(vat?.errors?.['min']).toBeFalsy();
+  });
+
+  it('gross field is valid', () => {
+    let errors = {};
+    let gross = component.vatCalcForm.controls['gross'];
+    gross.setValue(45000);
+    errors = gross.errors || {};
+    expect(gross?.errors?.['min']).toBeFalsy();
   });
 
   it('getCountries should return countries', () => {

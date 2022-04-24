@@ -3,7 +3,7 @@
     <div>
       <mat-form-field appearance="fill">
         <mat-label>Country</mat-label>
-        <mat-select class="mat-select-country" (selectionChange)="countrySelectedChange($event.value)" [(ngModel)]="currentCountry">
+        <mat-select class="mat-select-country" (selectionChange)="countrySelectedChange($event.value)" [(ngModel)]="currentCountry" ngDefaultControl >
           <mat-option *ngFor="let country of countries" [value]="country">
             {{country.countryName}}
           </mat-option>
@@ -16,7 +16,7 @@
     <div>
       <label id="example-radio-group-label">VAT Rate</label>
       <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-        [(ngModel)]="currentRate" (change)="onRateChange()">
+        [(ngModel)]="currentRate" (change)="onRateChange()" ngDefaultControl >
         <mat-radio-button class="example-radio-button" *ngFor="let rate of rates" [value]="rate" >
           {{rate.rateTitle}}
         </mat-radio-button>
@@ -30,18 +30,39 @@
         <form fxLayout="row column" [formGroup]="vatCalcForm">
           <div fxFlex="100">
             <div class="form-group">
+
               <mat-form-field fxFlex="33">
-                <input formControlName="net" matInput type="number" placeholder="Net" class="net-input right-align" (input)="onNetChange(vatCalcForm.value)">
+                <input formControlName="net"  matInput type="number" placeholder="Net" class="net-input right-align" (input)="onNetChange(vatCalcForm.value)">
+                <mat-error *ngIf="net?.errors?.['required']">
+                  The field must be a number
+                </mat-error>
+                <mat-error *ngIf="net?.errors?.['min']">
+                  The value must be greater than 0
+                </mat-error>
               </mat-form-field>
             </div>
+
             <div class="form-group">
               <mat-form-field fxFlex="33">
                 <input formControlName="vat" matInput type="number" placeholder="Vat" class="vat-input right-align" (input)="onVatChange(vatCalcForm.value)">
+                <mat-error *ngIf="vat?.errors?.['required']">
+                  The field must be a number
+                </mat-error>
+                <mat-error *ngIf="vat?.errors?.['min']">
+                  The value must be greater than 0
+                </mat-error>
               </mat-form-field>
             </div>
+
             <div class="form-group">
               <mat-form-field fxFlex="33">
                 <input formControlName="gross" matInput type="number" placeholder="Gross" class="gross-input right-align" (input)="onGrossChange(vatCalcForm.value)">
+                <mat-error *ngIf="gross?.errors?.['required']">
+                  The field must be a number
+                </mat-error>
+                <mat-error *ngIf="gross?.errors?.['min']">
+                  The value must be greater than 0
+                </mat-error>
               </mat-form-field>
             </div>
 

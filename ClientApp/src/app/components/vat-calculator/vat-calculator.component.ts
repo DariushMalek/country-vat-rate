@@ -42,6 +42,12 @@ export class VatCalculatorComponent implements OnInit {
     this.getCountries();
   }
 
+  get gross() { return this.vatCalcForm.get('gross'); }
+
+  get net() { return this.vatCalcForm.get('net'); }
+
+  get vat() { return this.vatCalcForm.get('vat'); }
+
   getCountries(){
     this.countryVatRateInfoService.getCountries().subscribe({
       next: (data: any) => {
